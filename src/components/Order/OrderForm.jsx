@@ -46,8 +46,17 @@ const OrderForm = () => {
                     }
                 })
 
-                setMasterId(data[0].id)
-                setMasters(data)
+                if(data.length === 0) {
+                    alert('All masters has been booked at that time. Please choose another time or date')
+                    setOrderTime('')
+                    setMasterId(0)
+                    setMasters([])
+                }
+
+                if(data.length) {
+                    setMasterId(data[0].id)
+                    setMasters(data)
+                }
             }
 
         }
@@ -81,11 +90,11 @@ const OrderForm = () => {
             start_work_at: `${orderDate} ${orderTime}`
         })
 
-        //setUserName('')
-        //setUserEmail('')
-        //setOrderTime('')
-        //setOrderDate('')
-        //alert('Your order has been created! Have a good day!')
+        setUserName('')
+        setUserEmail('')
+        setOrderTime('')
+        setOrderDate('')
+        alert('Your order has been created! Please confirm it on your Emailbox. Have a good day!')
 
     }
 
@@ -187,7 +196,7 @@ const OrderForm = () => {
                     <div>
                         <label>Available masters:</label>
                     </div>
-                    
+
                     <select name='masterName' onChange={(masterIdEvent) => setMasterId(+masterIdEvent.target.value)}>
                         {
                             masters.map(({name, id}) => (
