@@ -78,8 +78,8 @@ const OrderForm = () => {
     },[])
 
 
-    const onSubmit = () => {
-
+    const onSubmit = (event) => {
+        event.preventDefault()
         axios.post(`http://localhost:5000/api/order`, 
         {
             name:userName, 
@@ -200,11 +200,12 @@ const OrderForm = () => {
                     <select name='masterName' onChange={(masterIdEvent) => setMasterId(+masterIdEvent.target.value)}>
                         {
                             masters.map(({name, id}) => (
-                                <option selected = {id} value={id}>
+                                <option value={id}>
                                     {`${name}`}
                                 </option>
                             ))
                         }
+                        <option value="" disabled selected hidden>Choose the master</option>
                     </select>
                 </div>
 
