@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, useHistory} from "react-router-dom"
 
 
 
 const MasterController = () => {
+
+    const history = useHistory()
 
     const [masterName, setMasterName] = useState('')
     const [masterId, setMasterId]= useState(0)
@@ -33,6 +35,7 @@ const MasterController = () => {
         if (propsMasterId) {
 
             setMasterName( propsMasterName )
+            setMasterId ( propsMasterId )
         }
 
     }, [])
@@ -41,16 +44,17 @@ const MasterController = () => {
     const onSubmit = (event) => {
         event.preventDefault()
 
-        if (propsMasterId) {
+        if (!propsMasterId) {
 
                 axios.post(`http://localhost:5000/api/master`,
             {
                 name: masterName, 
                 city_id: cityId
+            }).then(() =>{
+                setMasterName('')
+                alert('Master has been created')
+                history.push('/admin/masters-list')
             })
-
-            setMasterName('')
-            alert('Master has been created')
 
         } else {
 
@@ -59,6 +63,9 @@ const MasterController = () => {
                 id: masterId,
                 name: masterName, 
                 city_id: cityId
+            }).then(() => {
+                alert('Master has been updated')
+                history.push('/admin/masters-list')
             })
         }
         

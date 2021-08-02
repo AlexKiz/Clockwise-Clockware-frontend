@@ -32,9 +32,6 @@ const MastersList = () => {
         }
     }
 
-    const onUpdate = () =>{
-
-    }
 
     return (
         <div>
