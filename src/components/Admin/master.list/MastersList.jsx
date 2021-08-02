@@ -27,8 +27,9 @@ const MastersList = () => {
                 data: {
                     id
                 }
+            }).then(() => {
+                alert('Master has been deleted')
             })
-            alert('Master has been deleted')
         }
     }
 
