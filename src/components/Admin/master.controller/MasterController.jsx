@@ -2,11 +2,11 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useHistory} from "react-router-dom"
 
-
-
 const MasterController = () => {
 
     const history = useHistory()
+
+    const { propsMasterId, propsMasterName, propsCityId } = useParams()
 
     const [masterName, setMasterName] = useState('')
     const [masterId, setMasterId]= useState(0)
@@ -14,16 +14,25 @@ const MasterController = () => {
     const [cityId, setCityId] = useState(0)
     const [cities, setCities] = useState([])
 
-    const { propsMasterId, propsMasterName, propsCityId } = useParams()
+    
 
     useEffect(() => {
 
         const readCities = async () => {
             
-            const {data} = await axios.get('http://localhost:5000/api/city')
+            const {data} = await axios.get(`/city`)
 
-            setCities(data)
-            setCityId(data[0].id)
+            if(propsCityId) {
+                
+                setCities(data)
+                setCityId(propsCityId)
+
+            } else if(data.length){
+
+                setCities(data)
+                setCityId(data[0].id)
+            }
+            
         }
 
         readCities()
@@ -39,14 +48,14 @@ const MasterController = () => {
         }
 
     }, [])
-    
+
 
     const onSubmit = (event) => {
         event.preventDefault()
 
         if (!propsMasterId) {
 
-                axios.post(`http://localhost:5000/api/master`,
+                axios.post(`/master`,
             {
                 name: masterName, 
                 city_id: cityId
@@ -58,7 +67,7 @@ const MasterController = () => {
 
         } else {
 
-            axios.put(`http://localhost:5000/api/master`,
+            axios.put(`/master`,
             {
                 id: masterId,
                 name: masterName, 
@@ -70,6 +79,7 @@ const MasterController = () => {
         }
         
     }
+
 
     return (
         <div>
@@ -96,6 +106,7 @@ const MasterController = () => {
                                         {`${name}`}
                                     </option>
                                 ))
+                                
                             }
                         </select>
                     </div>

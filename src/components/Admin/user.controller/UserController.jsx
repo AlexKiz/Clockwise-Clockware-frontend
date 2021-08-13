@@ -12,6 +12,7 @@ const UserController = () => {
 
     const {propsUserId, propsUserName, propsUserEmail} = useParams()
     
+
     useEffect(() => {
         
         setUserId( propsUserId )
@@ -20,9 +21,10 @@ const UserController = () => {
 
     },[])
 
+
     const onSubmit = (event) => {
         event.preventDefault()
-        axios.put('http://localhost:5000/api/user' , 
+        axios.put(`/user` , 
         {
             data: {
                 id: userId,
@@ -34,10 +36,11 @@ const UserController = () => {
             history.push('/admin/users-list')
         }).catch(() => {
             alert('User with current email already exists')
+            setUserEmail( propsUserEmail )
         })
         
     }
-
+    
     return (
         <div>
             <form onSubmit={onSubmit}>

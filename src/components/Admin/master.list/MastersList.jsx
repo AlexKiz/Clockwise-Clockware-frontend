@@ -6,11 +6,12 @@ const MastersList = () => {
 
     const [masters, setMasters] = useState([])
 
+
     useEffect(() => {
 
         const readAllMasters = async () => {
             
-            const {data} = await axios.get('http://localhost:5000/api/master')
+            const {data} = await axios.get(`/master`)
             
             setMasters(data)
         }
@@ -19,10 +20,11 @@ const MastersList = () => {
         
     }, [])
 
+
     const onDelete = (id) => {
 
         if(window.confirm("Do you want to delete this master?")) {
-            axios.delete('http://localhost:5000/api/master', 
+            axios.delete(`/master`, 
             {
                 data: {
                     id

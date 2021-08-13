@@ -6,12 +6,13 @@ const CitiesList = () => {
 
     const [cities, setCities] = useState([])
 
+
     useEffect(()=> {
-        
+
         const readAllCities = async () => {
 
-            const {data} = await axios.get('http://localhost:5000/api/city')
-
+            const {data} = await axios.get(`/city`)
+            
             setCities(data)
         }
 
@@ -19,10 +20,11 @@ const CitiesList = () => {
 
     },[])
 
+
     const onDelete = (id) => {
         
         if(window.confirm('Do you want to delete this city?')) {
-            axios.delete('http://localhost:5000/api/city',
+            axios.delete(`/city`,
             {
                 data: 
                 {
@@ -34,6 +36,7 @@ const CitiesList = () => {
         }
     }
 
+    
     return (
         <div>
             <table>

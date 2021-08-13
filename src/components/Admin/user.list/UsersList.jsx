@@ -6,23 +6,25 @@ const UserList = () => {
 
     const [users, setUsers] = useState([])
 
+
     useEffect(() => {
 
         const readAllUsers = async () => {
 
-            const { data } = await axios.get('http://localhost:5000/api/user')
+            const { data } = await axios.get(`/user`)
             
             setUsers(data)
         }
-
+        
         readAllUsers()
 
     },[])
 
+
     const onDelete = (id) => {
 
         if(window.confirm("Do you want to delete this user?")) {
-            axios.delete('http://localhost:5000/api/user',
+            axios.delete(`/user`,
             {
                 data: {
                     id
@@ -31,6 +33,7 @@ const UserList = () => {
         alert('User has been deleted')
         }
     }
+
 
     return (
         <div>

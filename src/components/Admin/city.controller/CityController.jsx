@@ -11,6 +11,7 @@ const CityController = () => {
 
     const {propsCityId, propsCityName} = useParams()
 
+
     useEffect(() => {
 
         if(propsCityId) {
@@ -20,11 +21,12 @@ const CityController = () => {
         }
     },[])
 
+
     const onSubmit = (event) => {
         event.preventDefault()
         if(!propsCityId) {
 
-            axios.post('http://localhost:5000/api/city',
+            axios.post(`/city`,
             {
 
                 id: cityId,
@@ -37,7 +39,7 @@ const CityController = () => {
 
         } else {
 
-            axios.put('http://localhost:5000/api/city', {
+            axios.put(`/city`, {
                 
                 data: {
                     id: cityId,
@@ -50,6 +52,7 @@ const CityController = () => {
         }
     }
 
+    
     return (
         <div> 
             <form onSubmit = {onSubmit}>

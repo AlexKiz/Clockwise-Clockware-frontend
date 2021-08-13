@@ -1,5 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+const currentDate = new Date() 
+const currentDay = (currentDate.getDate() < 10) ? `0${currentDate.getDate()}` : currentDate.getDate()
+const currentMonth = ((currentDate.getMonth() + 1) < 10) ? `0${(currentDate.getMonth() + 1)}` : (currentDate.getMonth() + 1)
+const currentYear = currentDate.getFullYear()
+const today = `${currentYear}-${currentMonth}-${currentDay}`
 
 const OrderForm = () => {
 
@@ -24,10 +29,12 @@ const OrderForm = () => {
     useEffect(() => {
         const cityName = async () => {
 
-            const {data} = await axios.get(`http://localhost:5000/api/city`)
+            const {data} = await axios.get(`/city`)
 
-            setCityId(data[0].id)
-            setCities(data)
+            if(data.length) {
+                setCities(data)
+                setCityId(data[0].id)
+            }
         }
 
         cityName()
@@ -38,7 +45,7 @@ const OrderForm = () => {
         const masterName = async () => {
 
             if(cityId && orderDate && orderTime && clocksId) {
-                const {data} = await axios.get(`http://localhost:5000/api/availableMasters`, {
+                const {data} = await axios.get(`/availableMasters`, {
                     params: {
                     city_id: cityId,
                     start_work_at: `${orderDate} ${orderTime}`,
@@ -68,7 +75,7 @@ const OrderForm = () => {
     useEffect(() => {
         const clockSize = async () => {
 
-            const{data} = await axios.get(`http://localhost:5000/api/clocks`)
+            const{data} = await axios.get(`/clocks`)
 
             setClocksId(data[0].id)
             setClockSizes(data)
@@ -80,7 +87,7 @@ const OrderForm = () => {
 
     const onSubmit = (event) => {
         event.preventDefault()
-        axios.post(`http://localhost:5000/api/order`, 
+        axios.post(`/order`, 
         {
             name:userName, 
             email:userEmail,
@@ -171,6 +178,7 @@ const OrderForm = () => {
                     <input 
                     type='date' 
                     name='orderDate'
+                    min= {today}
                     value={orderDate}
                     onChange={(orderDateEvent) => setOrderDate(orderDateEvent.target.value)}
                     ></input>
@@ -218,7 +226,6 @@ const OrderForm = () => {
         </div>
     )
 }
-
 
 
 export default OrderForm 
