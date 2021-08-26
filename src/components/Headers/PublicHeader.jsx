@@ -9,7 +9,6 @@ const PublicHeader = () => {
     const { pathname } = location
     const splitLocation = pathname.split('/')
 
-    console.log(splitLocation);
 
     return (
         <header>
