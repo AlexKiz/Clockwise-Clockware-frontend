@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useHistory} from "react-router-dom"
+
+
 const currentDate = new Date() 
 const currentDay = (currentDate.getDate() < 10) ? `0${currentDate.getDate()}` : currentDate.getDate()
 const currentMonth = ((currentDate.getMonth() + 1) < 10) ? `0${(currentDate.getMonth() + 1)}` : (currentDate.getMonth() + 1)
@@ -34,10 +36,9 @@ const OrderController = () => {
         const readAllUsers = async () => {
 
             const {data} = await axios.get(`/user`)
-            if(data.length) {
-                setUsers(data)
-                setUserId(propsUserId)
-            }
+
+            setUsers(data)
+            setUserId(propsUserId)
         }
 
         readAllUsers()
@@ -50,10 +51,9 @@ const OrderController = () => {
 
             const {data} = await axios.get(`/clocks`)
 
-            if(data.length) {
-                setClocks(data)
-                setClockId(propsClockId)
-            }
+            setClocks(data)
+            setClockId(propsClockId)
+            
         }
 
         readAllClocks()
@@ -66,10 +66,9 @@ const OrderController = () => {
 
             const {data} = await axios.get(`/city`)
 
-            if(data.length) {
-                setCities(data)
-                setCityId(propsCityId)
-            }
+            setCities(data)
+            setCityId(propsCityId)
+
         }
 
         readAllCities()
@@ -84,7 +83,7 @@ const OrderController = () => {
                 params: {
                 currentOrderId: propsOrderId,
                 city_id: propsCityId,
-                start_work_at: `${orderDate} ${orderTime}`,
+                start_work_on: `${orderDate} ${orderTime}`,
                 clocks_id: propsClockId,
                 }
             })
@@ -114,7 +113,7 @@ const OrderController = () => {
             user_id: userId,
             city_id: cityId,
             master_id: masterId,
-            start_work_at: `${orderDate} ${orderTime}`
+            start_work_on: `${orderDate} ${orderTime}`
         }).then(() => {
             alert('Order has been updated')
             history.push('/admin/orders-list')
@@ -124,12 +123,14 @@ const OrderController = () => {
 
 
     return(
-        <div>
-            <form onSubmit={onSubmit}>
+        <div className='container-form'>
+
+            <form className='form' onSubmit={onSubmit}>
+
                 <div>
 
-                    <div>
-                        <div>
+                    <div className='form-section'>
+                        <div className='form-input__label'>
                             <label>
                                 Choose user:
                             </label>
@@ -147,8 +148,8 @@ const OrderController = () => {
                     </div>
 
 
-                    <div>
-                        <div>
+                    <div className='form-section'>
+                        <div className='form-input__label'>
                             <label>
                                 Choose clock size:
                             </label>
@@ -166,8 +167,8 @@ const OrderController = () => {
                     </div>
 
 
-                    <div>
-                        <div>
+                    <div className='form-section'>
+                        <div className='form-input__label'>
                             <label>
                                 Choose city:
                             </label>
@@ -185,8 +186,8 @@ const OrderController = () => {
                     </div>
 
 
-                    <div>
-                        <div>
+                    <div className='form-section'>
+                        <div className='form-input__label'>
                             <label>
                                 Choose date:
                             </label>
@@ -201,8 +202,8 @@ const OrderController = () => {
                     </div>
 
 
-                    <div>
-                        <div>
+                    <div className='form-section'>
+                        <div className='form-input__label'>
                             <label>
                                 Choose order time:
                             </label>
@@ -220,8 +221,8 @@ const OrderController = () => {
                     </div>
 
 
-                    <div>   
-                        <div>
+                    <div className='form-section'>   
+                        <div className='form-input__label'>
                             <label>Available masters:</label>
                         </div>
 
@@ -237,7 +238,7 @@ const OrderController = () => {
                     </div>
 
 
-                    <div>   
+                    <div className='form-button'>   
                         <button type="submit"> Confirm </button>
                     </div>
 

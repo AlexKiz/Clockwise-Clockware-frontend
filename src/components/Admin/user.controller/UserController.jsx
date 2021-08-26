@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom"
+import '../user.controller/user-update-form.css'
 
 const UserController = () => {
     
@@ -42,31 +43,44 @@ const UserController = () => {
     }
     
     return (
-        <div>
-            <form onSubmit={onSubmit}>
+        <div className='container-form'>
+
+            <form className='form' onSubmit={onSubmit}>
+                
                 <div>
-                    <label>Enter User name:</label>
+
+                    <div className='form-section'>
+                        <div className='form-input__label'>
+                            <label>Enter User name:</label>
+                        </div>
+                        <input
+                        type='text'
+                        value={userName}
+                        onChange={(userNameEvent) => setUserName(userNameEvent.target.value)}
+                        >    
+                        </input>
+                    </div>
+
+                    <div className='form-section'>
+                        <div className='form-input__label'>
+                            <label>Enter User's email:</label>
+                        </div>
+                        <input
+                        type='email'
+                        value={userEmail}
+                        onChange={(userEmailEvent) => setUserEmail(userEmailEvent.target.value)}
+                        >
+                        </input>
+                    </div>
+
+                    <div className='form-button'>
+                        <button type='submit'>
+                            Submit
+                        </button>
+                    </div>
+
                 </div>
-                <input
-                type='text'
-                value={userName}
-                onChange={(userNameEvent) => setUserName(userNameEvent.target.value)}
-                >    
-                </input>
-                <div>
-                    <label>Enter User's email:</label>
-                </div>
-                <input
-                type='email'
-                value={userEmail}
-                onChange={(userEmailEvent) => setUserEmail(userEmailEvent.target.value)}
-                >
-                </input>
-                <div>
-                    <button type='submit'>
-                        Submit
-                    </button>
-                </div>
+
             </form>
         </div>
     )

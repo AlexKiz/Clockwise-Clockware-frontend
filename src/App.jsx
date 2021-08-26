@@ -11,13 +11,14 @@ import CitiesList from './components/Admin/cities.list/CitiesList';
 import CityController from './components/Admin/city.controller/CityController';
 import OrdersList from './components/Admin/orders.list/OrdersList';
 import OrderController from './components/Admin/order.controller/OrderController'
-import Header from './components/Headers/Header'
 import LoginForm from './components/Admin/login/LoginForm';
+import PrivatRoute from './PrivatRoute';
 
 
 const ROUTES = {
   ORDER_FORM: {
-    path: "/order-form",
+    path: "/" ,
+    exact: true,
     component: OrderForm
   },
   ADMIN_MASTERS_LIST: {
@@ -63,18 +64,17 @@ const ROUTES = {
 function App() {
   return (
     <BrowserRouter> 
-      <Header/>
       <Switch>
         <Route {...ROUTES.ORDER_FORM}/>
         <Route {...ROUTES.ADMIN_LOGIN}/>
-        <Route {...ROUTES.ADMIN_MASTERS_LIST}/>
-        <Route {...ROUTES.ADMIN_MASTER_CONTROLLER}/>
-        <Route {...ROUTES.ADMIN_USERS_LIST}/>
-        <Route {...ROUTES.ADMIN_USER_CONTROLLER}/>
-        <Route {...ROUTES.ADMIN_CITIES_LIST}/>
-        <Route {...ROUTES.ADMIN_CITY_CONTROLLER}/>
-        <Route {...ROUTES.ADMIN_ORDERS_LIST}/>
-        <Route {...ROUTES.ADMIN_ORDER_CONTROLLER}/>
+        <PrivatRoute {...ROUTES.ADMIN_MASTERS_LIST}/>
+        <PrivatRoute {...ROUTES.ADMIN_MASTER_CONTROLLER}/>
+        <PrivatRoute {...ROUTES.ADMIN_USERS_LIST}/>
+        <PrivatRoute {...ROUTES.ADMIN_USER_CONTROLLER}/>
+        <PrivatRoute {...ROUTES.ADMIN_CITIES_LIST}/>
+        <PrivatRoute {...ROUTES.ADMIN_CITY_CONTROLLER}/>
+        <PrivatRoute {...ROUTES.ADMIN_ORDERS_LIST}/>
+        <PrivatRoute {...ROUTES.ADMIN_ORDER_CONTROLLER}/>
       </Switch> 
     </BrowserRouter>
       

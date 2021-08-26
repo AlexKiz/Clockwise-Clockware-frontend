@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useHistory} from "react-router-dom"
 
+
 const MasterController = () => {
 
     const history = useHistory()
@@ -82,23 +83,29 @@ const MasterController = () => {
 
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
+        <div className='container-form'>
+
+            <form className='form' onSubmit={onSubmit}>
+
                 <div>
-                    <div>
-                        <label>Enter master name:</label>
+
+                    <div className='form-section'>
+                        <div className='form-input__label'>
+                            <label>Enter master name:</label>
+                        </div>
+                        <input 
+                        type='text'
+                        placeholder = 'Name Surname'
+                        value={masterName}
+                        onChange={(masterNameEvent) => setMasterName(masterNameEvent.target.value)}
+                        >                        
+                        </input>
                     </div>
-                    <input 
-                    type='text'
-                    placeholder = 'Name Surname'
-                    value={masterName}
-                    onChange={(masterNameEvent) => setMasterName(masterNameEvent.target.value)}
-                    >                        
-                    </input>
-                    <div>
-                    <div>
-                        <label>Choose master's сity:</label>
-                    </div>
+                    
+                    <div className='form-section'>
+                        <div className='form-input__label'>
+                            <label>Choose master's сity:</label>
+                        </div>
                         <select onChange={(cityIdEvent) => setCityId(cityIdEvent.target.value)}>
                             {
                                 cities.map(({name, id}) => (
@@ -110,12 +117,15 @@ const MasterController = () => {
                             }
                         </select>
                     </div>
-                <div>
+
+                    <div className='form-button'>
+                        <button type='submit'>
+                            Submit
+                        </button>
+                    </div>
+                
                 </div>
-                    <button type='submit'>
-                        Submit
-                    </button>
-                </div>
+
             </form>
         </div>
     )

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {Link} from 'react-router-dom'
+import '../user.list/user-list.css'
 
 const UserList = () => {
 
@@ -36,26 +37,32 @@ const UserList = () => {
 
 
     return (
-        <div>
-            <table>
-                <tr>
-                    <th>Id</th>
-                    <th>User name</th>
-                    <th>Email</th>
-                </tr>
-                {
-                    users.map((elem) => (
+
+            <div className='conteiner'>
+
+                <div className='wrapper-table'>
+                    
+                    <table className='content-table-users'>
                         <tr>
-                            <td>{`${elem.id}`}</td>
-                            <td>{`${elem.name}`}</td>
-                            <td>{`${elem.email}`}</td>
-                            <button><Link to={`/admin/user-controller/${elem.id}/${elem.name}/${elem.email}`}>Update</Link></button>
-                            <button onClick ={() => onDelete(elem.id)}>Delete</button>
+                            <th className='th-user-id'>Id</th>
+                            <th className='th-user-name'>User name</th>
+                            <th className='th-email'>Email</th>
                         </tr>
-                    ))
-                }
-            </table>
-        </div>
+                        { 
+                            users.map((elem) => (
+                                <tr>
+                                    <td>{`${elem.id}`}</td>
+                                    <td>{`${elem.name}`}</td>
+                                    <td>{`${elem.email}`}</td>
+                                    <button className='button-update'><Link to={`/admin/user-controller/${elem.id}/${elem.name}/${elem.email}`}>Update</Link></button>
+                                    <button className='button-delete' onClick ={() => onDelete(elem.id)}>Delete</button>
+                                    </tr>
+                            ))
+                        }
+                    </table>
+                </div>
+
+            </div>
     )
 }
 

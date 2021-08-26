@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useHistory} from "react-router-dom"
 
+
 const CityController = () => {
 
     const history = useHistory()
@@ -54,18 +55,30 @@ const CityController = () => {
 
     
     return (
-        <div> 
-            <form onSubmit = {onSubmit}>
+        <div className='container-form'> 
+
+            <form className='form' onSubmit = {onSubmit}>
+
                 <div>
-                    <label>Enter city name:</label>
+
+                    <div className='form-section'>
+                        <div className='form-input__label'>
+                            <label>Enter city name:</label>
+                        </div>
+                        <input
+                        type = "text"
+                        placeholder = "Name"
+                        value = {cityName}
+                        onChange = {(cityNameEvent) =>setCityName(cityNameEvent.target.value)}
+                        ></input>
+                    </div>
+
+                    <div className='form-button'>
+                        <button type = 'submit'>Submit</button>
+                    </div>
+
                 </div>
-                <input
-                type = "text"
-                placeholder = "Name"
-                value = {cityName}
-                onChange = {(cityNameEvent) =>setCityName(cityNameEvent.target.value)}
-                ></input>
-                <button type = 'submit'>Submit</button>
+                
             </form>
         </div>
     )

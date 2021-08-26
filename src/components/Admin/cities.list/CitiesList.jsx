@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {Link} from 'react-router-dom'
+import '../cities.list/cities-list.css'
 
 const CitiesList = () => {
 
@@ -38,24 +39,31 @@ const CitiesList = () => {
 
     
     return (
-        <div>
-            <table>
-                <tr>
-                    <th>Id</th>
-                    <th>City name</th>
-                    <th><button><Link to = '/admin/city-controller'>Create new city</Link></button></th>
-                </tr>
-                {
-                    cities.map((elem) => (
-                        <tr>
-                            <td>{`${elem.id}`}</td>
-                            <td>{`${elem.name}`}</td>
-                            <button><Link to = {`/admin/city-controller/${elem.id}/${elem.name}`}>Update</Link></button>
-                            <button onClick = {() => {onDelete(elem.id)}}>Delete</button>
-                        </tr>
-                    ))
-                }
-            </table>
+
+        <div className='conteiner'>
+
+            <div className='wrapper-table'>
+
+                <table  className='content-table-cities'>
+                    <tr>
+                        <th className='th-city-id'>Id</th>
+                        <th className='th-city-name'>City name</th>
+                        <button className='button-add'><Link to = '/admin/city-controller'>Create new city</Link></button>
+                    </tr>
+                    {
+                        cities.map((elem) => (
+                            <tr>
+                                <td>{`${elem.id}`}</td>
+                                <td>{`${elem.name}`}</td>
+                                <button className='button-update'><Link to = {`/admin/city-controller/${elem.id}/${elem.name}`}>Update</Link></button>
+                                <button className='button-delete' onClick = {() => {onDelete(elem.id)}}>Delete</button>
+                            </tr>
+                        ))
+                    }
+                </table>
+
+            </div>
+
         </div>
     )
 }

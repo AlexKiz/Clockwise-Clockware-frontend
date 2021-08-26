@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import {Link} from 'react-router-dom'
+import '../master.list/masters-list.css'
 
 const MastersList = () => {
 
@@ -37,29 +38,35 @@ const MastersList = () => {
 
 
     return (
-        <div>
-            <table>
-                <tr>
-                    <th>Id</th>
-                    <th>Master name</th>
-                    <th>City</th>
-                    <th>Rating</th>
-                    <th><button><Link to="/admin/master-controller">Create master</Link></button></th>
-                </tr>
-                {
-                    masters.map ((elem) => (
-                        <tr>
-                            <td>{`${elem.masterId}`}</td>
-                            <td>{`${elem.masterName}`}</td>
-                            <td>{`${elem.cityName}`}</td>
-                            <td>{`${elem.rating}`}</td>
-                            <button><Link to={`/admin/master-controller/${elem.masterId}/${elem.masterName}/${elem.cityId}`}>Update</Link></button>
-                            <button onClick = {() => onDelete(elem.masterId)}>Delete</button>
-                        </tr>
-                        
-                    ))
-                }
-            </table>
+        <div className='conteiner'>
+
+            <div className='wrapper-table'>
+
+                <table  className='content-table-masters'>
+                    <tr>
+                        <th className='th-master-id'>Id</th>
+                        <th className='th-master-name'>Master name</th>
+                        <th className='th-master-city'>City</th>
+                        <th className='th-rating'>Rating</th>
+                        <button className='button-add'><Link to="/admin/master-controller">Create new master</Link></button>
+                    </tr>
+                    {
+                        masters.map ((elem) => (
+                            <tr>
+                                <td>{`${elem.masterId}`}</td>
+                                <td>{`${elem.masterName}`}</td>
+                                <td>{`${elem.cityName}`}</td>
+                                <td>{`${elem.rating}`}</td>
+                                <button className='button-update'><Link to={`/admin/master-controller/${elem.masterId}/${elem.masterName}/${elem.cityId}`}>Update</Link></button>
+                                <button className='button-delete' onClick = {() => onDelete(elem.masterId)}>Delete</button>
+                            </tr>
+
+                        ))
+                    }
+                </table>
+
+            </div>
+
         </div>
         )
 }

@@ -1,42 +1,79 @@
-import { useState, useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useHistory } from "react-router-dom"
+import PublicHeader from "../../Headers/PublicHeader";
+import '../login/login-form.css'
+
 
 const LoginForm = () => {
+
+    const history = useHistory()
     
     const [adminLogin, setAdminLogin] = useState('')
     const [adminPassword, setAdminPassword] = useState('')
+    
+
+    const onSubmit = async (event) => {
+        event.preventDefault()
+        const payload = {
+            adminLogin,
+            adminPassword
+        }
+
+        try{
+
+            const { headers:{ authorization: accessToken } } = await axios.post('/login', payload)
+            localStorage.setItem('accessToken', accessToken.split(' ')[1])
+            history.push('/admin/orders-list')
+
+        } catch(e) {
+
+            alert('Incorrect logging data')
+            setAdminPassword('')
+        }
+    }
 
     return (
         <div>
-            <form>
-                <div>
+            <PublicHeader/>
+
+            <div className='container-form'>
+                <form className='form' onSubmit={onSubmit}>
                     <div>
-                        <label>Enter Admin Login:</label>
+                        <div className='form-section'>
+                            <div  className='form-input__label'>
+                                <label>Enter Admin Login:</label>
+                            </div>
+                            <input
+                            placeholder='Email'
+                            type='email' 
+                            name='login'
+                            value={adminLogin}
+                            onChange = {(adminLoginEvent) => setAdminLogin(adminLoginEvent.target.value)}
+                            required
+                            >
+                            </input>
+                        </div>
+                        <div className='form-section'>
+                            <div  className='form-input__label'>
+                                <label>Enter Admin Password:</label>
+                            </div>
+                            <input
+                            placeholder='Password'
+                            type='password' 
+                            name='password'
+                            value={adminPassword}
+                            onChange = {(adminPasswordEvent) => setAdminPassword(adminPasswordEvent.target.value)}
+                            >
+                            </input>
+                        </div>
+                        <div  className='form-button'>
+                            <button type='submit'>Sign In</button>
+                        </div>
                     </div>
-                    <input 
-                    type='email' 
-                    name='login'
-                    value={adminLogin}
-                    onChange = {(adminLoginEvent) => setAdminLogin(adminLoginEvent.target.value)}
-                    required
-                    >
-                    </input>
-                </div>
-                <div>
-                    <div>
-                        <label>Enter Admin Password:</label>
-                    </div>
-                    <input 
-                    type='password' 
-                    name='password'
-                    value={adminPassword}
-                    onChange = {(adminPasswordEvent) => setAdminPassword(adminPasswordEvent.target.value)}
-                    >
-                    </input>
-                </div>
-                <div>
-                    <button>Sign In</button>
-                </div>
-            </form>
+                </form>
+            </div>
+            
         </div>
     )
 }
