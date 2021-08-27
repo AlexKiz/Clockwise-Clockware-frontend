@@ -1,16 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import OrderForm from './components/order/OrderForm';
-import MastersList from './components/Admin/master.list/MastersList'
-import MasterController from './components/Admin/master.controller/MasterController'
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import OrderForm from './components/Order/OrderForm';
+import MastersList from './components/Admin/master.list/MastersList';
+import MasterController from './components/Admin/master.controller/MasterController';
 import UsersList from './components/Admin/user.list/UsersList';
 import UserController from './components/Admin/user.controller/UserController';
 import CitiesList from './components/Admin/cities.list/CitiesList';
 import CityController from './components/Admin/city.controller/CityController';
 import OrdersList from './components/Admin/orders.list/OrdersList';
-import OrderController from './components/Admin/order.controller/OrderController'
+import OrderController from './components/Admin/order.controller/OrderController';
 import LoginForm from './components/Admin/login/LoginForm';
 import PrivatRoute from './PrivatRoute';
 
