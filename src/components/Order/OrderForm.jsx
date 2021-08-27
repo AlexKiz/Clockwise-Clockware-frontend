@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import PublicHeader from '../Headers/PublicHeader'
-import '../order/order-form.css'
+import '../Order/order-form.css'
 
 const currentDate = new Date() 
 const currentDay = (currentDate.getDate() < 10) ? `0${currentDate.getDate()}` : currentDate.getDate()
