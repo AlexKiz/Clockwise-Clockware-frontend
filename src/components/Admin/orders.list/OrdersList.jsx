@@ -62,7 +62,7 @@ const OrdersList = () => {
                             <td>{`${elem.userEmail}`}</td>
                             <td>{`${elem.cityName}`}</td>
                             <td>{`${elem.masterName}`}</td>
-                            <td>{`${elem.startWorkOn.split(',').join(' | ')}`}</td>
+                            <td>{`${elem.startWorkOn.split(',').join(' ')}`}</td>
                             <td>{`${elem.endWorkOn}`}</td>
                             <button className='button-update'><Link to={`/admin/order-controller/${elem.orderId}/${elem.userId}/${elem.clocksId}/${elem.cityId}/${elem.startWorkOn.split(',')[0]}/${elem.startWorkOn.split(',')[1]}/${elem.masterId}`}>Update</Link></button>
                             <button className='button-delete' onClick={() => onDelete(elem.orderId)}>Delete</button>
