@@ -32,7 +32,10 @@ const CitiesList = () => {
                     id
                 }
             }).then(() => {
-                alert('City has been deleted')
+
+                setCities(cities.filter((elem) => elem.id !== id))
+
+                alert('City has been deleted') 
             })
         }
     }

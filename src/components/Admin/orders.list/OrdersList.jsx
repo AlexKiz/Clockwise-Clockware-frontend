@@ -18,7 +18,7 @@ const OrdersList = () => {
         } 
 
         readAllOrders()
-        console.log(orders);
+        
     },[])
 
 
@@ -31,6 +31,9 @@ const OrdersList = () => {
                     id
                 }
             }).then(() => {
+
+                setOrders(orders.filter((elem) => elem.orderId !== id))
+                
                 alert('Order has been deleted')
             })
         }

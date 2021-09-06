@@ -19,7 +19,7 @@ const MastersList = () => {
         
         readAllMasters()
         
-    }, [])
+    }, []) 
 
 
     const onDelete = (id) => {
@@ -31,6 +31,9 @@ const MastersList = () => {
                     id
                 }
             }).then(() => {
+
+                setMasters(masters.filter((elem) => elem.masterId !== id))
+
                 alert('Master has been deleted')
             })
         }

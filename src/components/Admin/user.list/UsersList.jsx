@@ -30,8 +30,12 @@ const UserList = () => {
                 data: {
                     id
                 }
+            }).then(() => {
+
+                setUsers(users.filter((elem) => elem.id !== id))
+                
+                alert('User has been deleted')
             })
-        alert('User has been deleted')
         }
     }
 
