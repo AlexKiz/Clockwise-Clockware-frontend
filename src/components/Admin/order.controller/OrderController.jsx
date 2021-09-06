@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useHistory} from "react-router-dom"
+import '../order.controller/order-update-form.css'
 
 
 const currentDate = new Date() 
@@ -8,6 +9,8 @@ const currentDay = (currentDate.getDate() < 10) ? `0${currentDate.getDate()}` : 
 const currentMonth = ((currentDate.getMonth() + 1) < 10) ? `0${(currentDate.getMonth() + 1)}` : (currentDate.getMonth() + 1)
 const currentYear = currentDate.getFullYear()
 const today = `${currentYear}-${currentMonth}-${currentDay}`
+
+const openingHours = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
 
 const OrderController = () => {
 
@@ -140,7 +143,7 @@ const OrderController = () => {
                         {
                             users.map(({name, id, email}) => (
                                 <option selected = {id === +propsUserId} value={id}>
-                                    {` user: ${name} email: ${email}`}
+                                    {` user: ${name} | email: ${email}`}
                                 </option>
                             ))
                         }
@@ -209,15 +212,15 @@ const OrderController = () => {
                             </label>
                         </div>
 
-                        <input 
-                        type="time" 
-                        step='3600'
-                        name='orderTime'
-                        max="18:00"
-                        min="09:00"
-                        value={orderTime}
-                        onChange={(orderTimeEvent) => setOrderTime(orderTimeEvent.target.value)}
-                        ></input>
+                        <select name='orderTime' onChange={(orderTimeEvent) => setOrderTime(orderTimeEvent.target.value)}>
+                            {
+                                openingHours.map((elem) => (
+                                    <option selected = {elem === orderTime} value={elem}>
+                                        {`${elem}`}
+                                    </option>
+                                ))
+                            }
+                        </select>
                     </div>
 
 

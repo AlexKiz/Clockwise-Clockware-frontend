@@ -9,6 +9,8 @@ const currentMonth = ((currentDate.getMonth() + 1) < 10) ? `0${(currentDate.getM
 const currentYear = currentDate.getFullYear()
 const today = `${currentYear}-${currentMonth}-${currentDay}`
 
+const openingHours = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
+
 const OrderForm = () => {
 
     const [userName, setUserName] = useState('')
@@ -19,7 +21,7 @@ const OrderForm = () => {
 
     const [orderTime, setOrderTime] = useState('')
 
-    const [masterId, setMasterId] = useState(0)
+    const [masterId, setMasterId] = useState(0) 
     const [masters, setMasters] = useState([])
 
     const [cityId, setCityId] = useState(0)
@@ -130,7 +132,9 @@ const OrderForm = () => {
         
                                     <input 
                                     type='text' 
-                                    placeholder='Ivan Ivanov' 
+                                    placeholder='Ivan Ivanov'
+                                    pattern='^([(A-Za-zА-Яа-я]{3,49})$|^([A-Za-zА-Яа-я]{3,49}[\s]{1}[A-Za-zА-Яа-я]{3,50})$'
+                                    title='User name must be at least 3 letter and alphabetical characters only'
                                     value={userName}
                                     onChange={(userNameEvent) => setUserName(userNameEvent.target.value)}
                                     required
@@ -144,8 +148,10 @@ const OrderForm = () => {
         
                                     <input 
                                     type='email' 
-                                    value={userEmail} 
                                     placeholder='example@mail.com'
+                                    pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+                                    title='Email must be according the example: myemail@mail.com'
+                                    value={userEmail} 
                                     onChange={(userEmailEvent) => setUserEmail(userEmailEvent.target.value)}
                                     required
                                     ></input>
@@ -202,15 +208,15 @@ const OrderForm = () => {
                                         <label>Choose the time:</label>
                                     </div>
                                     
-                                    <input 
-                                    type="time" 
-                                    name='orderTime'
-                                    step='3600'
-                                    min="09:00"
-                                    max="18:00"
-                                    value={orderTime}
-                                    onChange={(orderTimeEvent) => setOrderTime(orderTimeEvent.target.value)}
-                                    ></input>
+                                    <select name='orderTime' onChange={(orderTimeEvent) => setOrderTime(orderTimeEvent.target.value)}>
+                                        {
+                                            openingHours.map((elem) => (
+                                                <option value={elem}>
+                                                    {`${elem}`}
+                                                </option>
+                                            ))
+                                        }
+                                    </select>
                                 </div>
                                     
                                 <div className='form-section'>   
@@ -220,9 +226,9 @@ const OrderForm = () => {
                                     
                                     <select name='masterName' onChange={(masterIdEvent) => setMasterId(+masterIdEvent.target.value)}>
                                         {
-                                            masters.map(({name, id}) => (
+                                            masters.map(({name, id, rating}) => (
                                                 <option value={id}>
-                                                    {`${name}`}
+                                                    {`${name} | Rating:${rating}`}
                                                 </option>
                                             ))
                                         }
