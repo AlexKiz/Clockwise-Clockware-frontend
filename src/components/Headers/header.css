@@ -66,18 +66,18 @@ li,a, button {
     width: 281px;
 }
 
-.inner-logo:hover .logo-img1a {
+.inner-logo .logo-img1a {
 
     animation: spin-reverse linear 2.5s infinite;
 }
 
-.inner-logo:hover .logo-img1b {
+.inner-logo .logo-img1b {
 
-    animation: spin1 linear 2.5s infinite;
+    animation: spin linear 2.5s infinite;
 }
 
-.inner-logo:hover .logo-img1c {
-    animation: spin1 linear 6s infinite;
+.inner-logo .logo-img1c {
+    animation: spin linear 6s infinite;
 }
 
 @keyframes spin-reverse{
@@ -91,7 +91,7 @@ li,a, button {
     }
 }
 
-@keyframes spin1{
+@keyframes spin{
     from {
     
         transform: rotate(0deg);
