@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useHistory} from "react-router-dom"
-
+import '../master.controller/master-update-form.css'
 
 const MasterController = () => {
 
@@ -13,7 +13,7 @@ const MasterController = () => {
     const [masterId, setMasterId]= useState(0)
 
     const [cityId, setCityId] = useState(0)
-    const [cities, setCities] = useState([])
+    const [cities, setCities] = useState([]) 
 
     
 
@@ -96,6 +96,8 @@ const MasterController = () => {
                         <input 
                         type='text'
                         placeholder = 'Name Surname'
+                        pattern='[A-Za-zА-Яа-я]{3,49}[\s]{1}[A-Za-zА-Яа-я]{3,50}$'
+                        title='Master name must be at least 3 letter and alphabetical characters only'
                         value={masterName}
                         onChange={(masterNameEvent) => setMasterName(masterNameEvent.target.value)}
                         >                        

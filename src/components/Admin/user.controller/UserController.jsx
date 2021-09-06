@@ -26,7 +26,7 @@ const UserController = () => {
     const onSubmit = (event) => {
         event.preventDefault()
         axios.put(`/user` , 
-        {
+        { 
             data: {
                 id: userId,
                 name: userName,
@@ -55,6 +55,8 @@ const UserController = () => {
                         </div>
                         <input
                         type='text'
+                        pattern='^([(A-Za-zА-Яа-я]{3,49})$|^([A-Za-zА-Яа-я]{3,49}[\s]{1}[A-Za-zА-Яа-я]{3,50})$'
+                        title='User name must be at least 3 letter and alphabetical characters only'
                         value={userName}
                         onChange={(userNameEvent) => setUserName(userNameEvent.target.value)}
                         >    
@@ -67,6 +69,8 @@ const UserController = () => {
                         </div>
                         <input
                         type='email'
+                        pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+                        title='Email must be according the example: myemail@mail.com'
                         value={userEmail}
                         onChange={(userEmailEvent) => setUserEmail(userEmailEvent.target.value)}
                         >

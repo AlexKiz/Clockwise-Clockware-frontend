@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useHistory} from "react-router-dom"
-
+import '../city.controller/city-update-form.css'
 
 const CityController = () => {
 
@@ -27,16 +27,26 @@ const CityController = () => {
         event.preventDefault()
         if(!propsCityId) {
 
-            axios.post(`/city`,
+            axios.post(`/city`, 
             {
 
                 id: cityId,
                 name: cityName
 
             }).then(() => {
+
                 alert('City has been created')
                 history.push('/admin/cities-list')
+
+            }).catch((error) => {
+
+                if(+error.response.status === 400) {
+                    alert(error.response.data[0])
+                    setCityName('')
+                }
+                
             })
+
 
         } else {
 
@@ -47,14 +57,22 @@ const CityController = () => {
                     name: cityName
                 }
             }).then(() => {
+
                 alert('City has been updated')
                 history.push('/admin/cities-list')
+
+            }).catch((error) => {
+
+                alert(error.response.data)
+                setCityName(propsCityName)
+
             })
         }
     }
 
     
     return (
+
         <div className='container-form'> 
 
             <form className='form' onSubmit = {onSubmit}>
@@ -68,6 +86,8 @@ const CityController = () => {
                         <input
                         type = "text"
                         placeholder = "Name"
+                        pattern='^[A-Za-zА-Яа-я]{3,100}$|^[A-Za-zА-Яа-я]{3,49}[-\s]{1}[A-Za-zА-Яа-я]{3,50}$'
+                        title='City name must be at least 3 letter and alphabetical only'
                         value = {cityName}
                         onChange = {(cityNameEvent) =>setCityName(cityNameEvent.target.value)}
                         ></input>
