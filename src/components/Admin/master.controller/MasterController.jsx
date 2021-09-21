@@ -70,9 +70,12 @@ const MasterController = () => {
 
             axios.put(`/master`,
             {
-                id: masterId,
-                name: masterName, 
-                city_id: cityId
+                data: {
+                    id: masterId,
+                    name: masterName, 
+                    city_id: cityId
+                }
+                
             }).then(() => {
                 alert('Master has been updated')
                 history.push('/admin/masters-list')
