@@ -7,31 +7,48 @@ const MasterController = () => {
 
     const history = useHistory()
 
-    const { propsMasterId, propsMasterName, propsCityId } = useParams()
+    const { propsMasterId, propsMasterName } = useParams()
 
     const [masterName, setMasterName] = useState('')
     const [masterId, setMasterId]= useState(0)
 
-    const [cityId, setCityId] = useState(0)
+    const [citiesId, setCitiesId] = useState([])
     const [cities, setCities] = useState([]) 
-
     
+    
+    useEffect(() => {
+        
+        const readMaster = async () => {
+            
+                const {data} = await axios.get(`/master`)
+
+                if(propsMasterId && data.length) {
+
+                    const currentMaster = data.filter(item => item.masterId === +propsMasterId)
+                    
+                    const currentMasterCities = currentMaster[0].cities.map((elem) => {return elem.cityId})
+
+                    setMasterName( propsMasterName )
+                    setMasterId ( propsMasterId )
+                    setCitiesId ( currentMasterCities )
+                }
+            
+            }
+
+        readMaster()
+        
+    }, [])
 
     useEffect(() => {
 
         const readCities = async () => {
             
-            const {data} = await axios.get(`/city`)
+            const {data} = await axios.get(`/city`) 
 
-            if(propsCityId) {
+            if(data.length){
+
+                setCities(data)
                 
-                setCities(data)
-                setCityId(propsCityId)
-
-            } else if(data.length){
-
-                setCities(data)
-                setCityId(data[0].id)
             }
             
         }
@@ -39,16 +56,12 @@ const MasterController = () => {
         readCities()
     }, [])
 
-
     useEffect(() => {
-
-        if (propsMasterId) {
-
-            setMasterName( propsMasterName )
-            setMasterId ( propsMasterId )
-        }
-
-    }, [])
+        console.log(0);
+        console.log(citiesId);
+        console.log(1);
+        console.log(cities);
+    },[citiesId,cities])
 
 
     const onSubmit = (event) => {
@@ -59,7 +72,7 @@ const MasterController = () => {
                 axios.post(`/master`,
             {
                 name: masterName, 
-                city_id: cityId
+                cities_id: citiesId
             }).then(() =>{
                 setMasterName('')
                 alert('Master has been created')
@@ -68,12 +81,12 @@ const MasterController = () => {
 
         } else {
 
-            axios.put(`/master`,
-            {
+            axios.put(`/master`, {
+
                 data: {
                     id: masterId,
                     name: masterName, 
-                    city_id: cityId
+                    cities_id: citiesId
                 }
                 
             }).then(() => {
@@ -99,7 +112,7 @@ const MasterController = () => {
                         <input 
                         type='text'
                         placeholder = 'Name Surname'
-                        pattern='[A-Za-zА-Яа-я]{3,49}[\s]{1}[A-Za-zА-Яа-я]{3,50}$'
+                        pattern='^[A-Za-zА-Яа-я]{3,49}$|^[A-Za-zА-Яа-я]{3,49}[\s]{1}[A-Za-zА-Яа-я]{3,50}$'
                         title='Master name must be at least 3 letter and alphabetical characters only'
                         value={masterName}
                         onChange={(masterNameEvent) => setMasterName(masterNameEvent.target.value)}
@@ -111,16 +124,37 @@ const MasterController = () => {
                         <div className='form-input__label'>
                             <label>Choose master's сity:</label>
                         </div>
-                        <select onChange={(cityIdEvent) => setCityId(cityIdEvent.target.value)}>
-                            {
-                                cities.map(({name, id}) => (
-                                    <option selected = {id === +propsCityId} value={id}>
-                                        {`${name}`}
-                                    </option>
-                                ))
+                        {
+                            cities.map(({name, id}) => (
+                                <div className='form-section_checkbox'>
                                 
-                            }
-                        </select>
+                                    <div className='form-input_checkbox'>
+                                        <input 
+                                        type="checkbox" 
+                                        value={id}
+                                        checked={citiesId.includes(id)}
+                                        onChange = {
+                                            function (event) {
+                                                if (event.target.checked) {
+                                                    
+                                                    setCitiesId([...citiesId, +event.target.value])
+                                                
+                                                } else {
+                                                
+                                                    setCitiesId([...citiesId].filter((elem) => elem !== +event.target.value))
+                                                
+                                                }
+                                            }
+                                        }
+                                        />
+                                    </div>
+                                    <div className='checkbox-label'>
+                                        <span className='form-input_checkbox-name'>{name}</span>
+                                    </div>
+                                        
+                                </div>
+                            ))
+                        }
                     </div>
 
                     <div className='form-button'>
@@ -132,6 +166,7 @@ const MasterController = () => {
                 </div>
 
             </form>
+
         </div>
     )
 }

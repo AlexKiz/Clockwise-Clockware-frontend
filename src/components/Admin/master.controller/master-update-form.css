@@ -45,6 +45,7 @@ label, button {
     
 }
 
+
 .form-input__label {
     text-align: center;
     margin-bottom: 5px;
@@ -52,6 +53,26 @@ label, button {
 
 .form-section{
     margin-bottom: 15px;
+}
+
+.form-section_checkbox {
+    display: flex;
+    justify-content:start;
+}
+
+.form-input_checkbox {
+    display: flex;
+    width: 45px;
+}
+
+.form-input_checkbox > input {
+    display: block;
+    width: 60%;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
 }
 
 .form-button {

@@ -49,7 +49,7 @@ const MastersList = () => {
                     <tr>
                         <th className='th-master-id'>Id</th>
                         <th className='th-master-name'>Master name</th>
-                        <th className='th-master-city'>City</th>
+                        <th className='th-master-city'>Cities</th>
                         <th className='th-rating'>Rating</th>
                         <button className='button-add'><Link to="/admin/master-controller">Create new master</Link></button>
                     </tr>
@@ -58,9 +58,9 @@ const MastersList = () => {
                             <tr>
                                 <td>{`${elem.masterId}`}</td>
                                 <td>{`${elem.masterName}`}</td>
-                                <td>{`${elem.cityName}`}</td>
+                                <td>{elem.cities.map((item) => {return `${item.cityName}`}).join(', ')}</td>
                                 <td>{`${elem.rating}`}</td>
-                                <button className='button-update'><Link to={`/admin/master-controller/${elem.masterId}/${elem.masterName}/${elem.cityId}`}>Update</Link></button>
+                                <button className='button-update'><Link to={`/admin/master-controller/${elem.masterId}/${elem.masterName}`}>Update</Link></button>
                                 <button className='button-delete' onClick = {() => onDelete(elem.masterId)}>Delete</button>
                             </tr>
 

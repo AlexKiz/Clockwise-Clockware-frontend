@@ -26,7 +26,7 @@ const ROUTES = {
     component: MastersList
   },
   ADMIN_MASTER_CONTROLLER: {
-    path: "/admin/master-controller/:propsMasterId?/:propsMasterName?/:propsCityId?",
+    path: "/admin/master-controller/:propsMasterId?/:propsMasterName?",
     component: MasterController
   },
   ADMIN_USERS_LIST: {
