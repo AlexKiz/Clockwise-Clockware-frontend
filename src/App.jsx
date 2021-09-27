@@ -13,6 +13,7 @@ import OrdersList from './components/Admin/orders.list/OrdersList';
 import OrderController from './components/Admin/order.controller/OrderController';
 import LoginForm from './components/Admin/login/LoginForm';
 import PrivatRoute from './PrivatRoute';
+import RateOrder from './components/RateOrder/RateOrder'
 
 
 const ROUTES = {
@@ -56,6 +57,10 @@ const ROUTES = {
   ADMIN_LOGIN: {
     path:"/login",
     component: LoginForm
+  },
+  RATE_ORDER: {
+    path:"/rate/:ratingIdentificator?",
+    component: RateOrder
   }
   
 } 
@@ -67,6 +72,7 @@ function App() {
       <Switch>
         <Route {...ROUTES.ORDER_FORM}/>
         <Route {...ROUTES.ADMIN_LOGIN}/>
+        <Route {...ROUTES.RATE_ORDER}/>
         <PrivatRoute {...ROUTES.ADMIN_MASTERS_LIST}/>
         <PrivatRoute {...ROUTES.ADMIN_MASTER_CONTROLLER}/>
         <PrivatRoute {...ROUTES.ADMIN_USERS_LIST}/>

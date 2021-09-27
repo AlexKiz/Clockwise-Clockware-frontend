@@ -56,13 +56,6 @@ const MasterController = () => {
         readCities()
     }, [])
 
-    useEffect(() => {
-        console.log(0);
-        console.log(citiesId);
-        console.log(1);
-        console.log(cities);
-    },[citiesId,cities])
-
 
     const onSubmit = (event) => {
         event.preventDefault()
