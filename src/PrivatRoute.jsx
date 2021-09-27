@@ -9,9 +9,12 @@ const PrivatRoute = ({ component: Component, ...rest }) => {
 
     useEffect(() => {
 
-        if((jwt_decode(localStorage.getItem('accessToken'))).exp < +(Date.now()/1000).toFixed()) {
-            localStorage.removeItem('accessToken')
+        if(!localStorage.getItem('accessToken')) {
+            alert('You must be authorizated')
             history.push('/login')
+        } else if((jwt_decode(localStorage.getItem('accessToken'))).exp < +(Date.now()/1000).toFixed()){
+            localStorage.removeItem('accessToken')
+            history.push('/login');
         }
 
     })
