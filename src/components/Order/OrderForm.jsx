@@ -34,7 +34,7 @@ const OrderForm = () => {
     useEffect(() => {
         const cityName = async () => {
 
-            const {data} = await axios.get(`/city`)
+            const {data} = await axios.get(`/cityForOrder`)
 
             if(data.length) {
                 setCities(data)
