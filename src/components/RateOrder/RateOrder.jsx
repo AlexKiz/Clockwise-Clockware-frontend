@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import ReactStars from "react-rating-stars-component";
+import classes from '../RateOrder/rate-order.module.css'
 
 const RateOrder = () => {
 
@@ -30,7 +31,11 @@ const RateOrder = () => {
             if(data.length) {
 
                 setOrder(data)
-            } else {
+
+            } 
+            
+            if(!data.length) {
+
                 alert('Current order has been already rated')
                 history.push('/')
             }
@@ -58,51 +63,55 @@ const RateOrder = () => {
 
     return (
         <div>
-            <form className='form' onSubmit={onSubmit} name='orderForm'>
-        
-                <div>
-                { order[0] &&
-                    <>
-                    <div>
-                        <b>Please, rate the following master:</b>
-                        <br />
-                        {order[0].masterName}
-                    </div>
-                    <div>
-                        <label>Order Info:</label>
-                        <br/>
-                        <b>Order №{order[0].orderId}</b>
-                        <br />
-                        <b> User name:</b>  {order[0].userName}
-                        <br />
-                        <b> User email:</b> {order[0].userEmail}
-                        <br />
-                        <b> Clock size:</b>  {order[0].clockSize}
-                        <br />
-                        <b> City:</b>  {order[0].cityName}
-                        <br />
-                        <b> Start work on:</b>  {order[0].startWorkOn}
-                        <br />
-                        <b> End work on:</b>  {order[0].endWorkOn} 
-                    </div>
-                </>
-                }
-                    
-                    <ReactStars
-                    count={5}
-                    size={60}
-                    activeColor="#ffd700"
-                    isHalf={true}
-                    value={rating}
-                    onChange={(newRating) => setRating(newRating)}
-                    />
+            <div className={classes.container}>
+                <div className={classes.container_form}>
+                    <form className={classes.form} onSubmit={onSubmit} name='orderForm'>
 
-                    <div className='form-button'>   
-                        <button type="submit"> Confirm rating </button>
-                    </div>
-                        
+                        <div>
+                        { order[0] &&
+                            <>
+                            <div className={classes.form_master}>
+                                <label>Please, rate the following master:</label>
+                                <p>{order[0].masterName}</p>
+                            </div>
+                            <div className={classes.form_orderinfo}>
+                                <b>Order #{order[0].orderId}</b>
+                                <br />
+                                <b> User name:</b> <span>{order[0].userName}</span>
+                                <br />
+                                <b> User email:</b> <span>{order[0].userEmail}</span>
+                                <br />
+                                <b> Clock size:</b>  <span>{order[0].clockSize}</span>
+                                <br />
+                                <b> City:</b>  <span>{order[0].cityName}</span>
+                                <br />
+                                <b> Start work on:</b>  <span>{order[0].startWorkOn.split(',').join(' ')}</span>
+                                <br />
+                                <b> End work on:</b>  <span>{order[0].endWorkOn} </span>
+                            </div>
+                        </>
+                        }
+
+                            <div className={classes.form_stars}>
+                                <ReactStars
+                                count={5}
+                                size={75}
+                                activeColor="#f6ff00"
+                                isHalf={true}
+                                value={rating}
+                                onChange={(newRating) => setRating(newRating)}
+                                />
+                            </div>
+
+                            <div className={classes.form_button}>   
+                                <button type="submit"> Rate order </button>
+                            </div>
+
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+            
         </div>
     )
 }

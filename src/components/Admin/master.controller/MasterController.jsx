@@ -113,42 +113,42 @@ const MasterController = () => {
                         </input>
                     </div>
                     
-                    <div className='form-section'>
+                    
                         <div className='form-input__label'>
                             <label>Choose master's сity:</label>
                         </div>
-                        {
-                            cities.map(({name, id}) => (
-                                <div className='form-section_checkbox'>
-                                
-                                    <div className='form-input_checkbox'>
-                                        <input 
-                                        type="checkbox" 
-                                        value={id}
-                                        checked={citiesId.includes(id)}
-                                        onChange = {
-                                            function (event) {
-                                                if (event.target.checked) {
+
+                        <div className='form-section_checkbox'>
+                            {
+                                cities.map(({name, id}) => (
+                                    <div className='form-section_checkbox'>
+                                        <div className='form-input_checkbox'>
+                                            <input 
+                                            type="checkbox" 
+                                            value={id}
+                                            checked={citiesId.includes(id)}
+                                            onChange = {
+                                                function (event) {
+                                                    if (event.target.checked) {
+
+                                                        setCitiesId([...citiesId, +event.target.value])
                                                     
-                                                    setCitiesId([...citiesId, +event.target.value])
-                                                
-                                                } else {
-                                                
-                                                    setCitiesId([...citiesId].filter((elem) => elem !== +event.target.value))
-                                                
+                                                    } else {
+                                                    
+                                                        setCitiesId([...citiesId].filter((elem) => elem !== +event.target.value))
+                                                    
+                                                    }
                                                 }
                                             }
-                                        }
-                                        />
+                                            />
+                                        </div>
+                                        <div className='checkbox-label'>
+                                            <span className='form-input_checkbox-name'>{name}</span>
+                                        </div>    
                                     </div>
-                                    <div className='checkbox-label'>
-                                        <span className='form-input_checkbox-name'>{name}</span>
-                                    </div>
-                                        
-                                </div>
-                            ))
-                        }
-                    </div>
+                                ))
+                            }
+                        </div>
 
                     <div className='form-button'>
                         <button type='submit'>

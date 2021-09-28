@@ -57,7 +57,8 @@ label, button {
 
 .form-section_checkbox {
     display: flex;
-    justify-content:start;
+    flex-wrap: wrap;
+    width: 330px;
 }
 
 .form-input_checkbox {
