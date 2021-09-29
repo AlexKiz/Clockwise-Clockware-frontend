@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
 import PublicHeader from "../../Headers/PublicHeader";
 import '../login/login-form.css'
@@ -11,6 +11,12 @@ const LoginForm = () => {
     
     const [adminLogin, setAdminLogin] = useState('')
     const [adminPassword, setAdminPassword] = useState('')
+
+    useEffect(() => {
+        if(localStorage.getItem('accessToken')) {
+            history.push('/admin/orders-list')
+        }
+    },[])
     
 
     const onSubmit = async (event) => {

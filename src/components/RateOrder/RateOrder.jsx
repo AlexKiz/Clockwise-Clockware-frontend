@@ -51,7 +51,7 @@ const RateOrder = () => {
 
         axios.put('/RatedOrder', {
             id: order[0].orderId,
-            rating: rating,
+            order_rated: rating,
             master_id: order[0].masterId
         }).then(() => {
 
